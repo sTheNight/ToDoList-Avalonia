@@ -1,0 +1,42 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:ToDoList.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="500"
+        x:Class="ToDoList.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Width="300" Height="500"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="ToDoList">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel />
+    </Design.DataContext>
+
+    <Grid RowDefinitions="*,Auto" Margin="5" x:Name="Root">
+        <ScrollViewer Grid.Row="0">
+            <ItemsControl ItemsSource="{Binding TodoItems}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="*,Auto" Margin="0,5">
+                            <CheckBox IsChecked="{Binding IsDone}" Content="{Binding Title}"></CheckBox>
+                            <Button Grid.Column="1" Content="Delete"
+                                    Command="{Binding  #Root.((vm:MainWindowViewModel)DataContext).RemoveItemCommand}"
+                                    CommandParameter="{Binding .}">
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        <StackPanel Grid.Row="1" Spacing="5">
+            <TextBox Watermark="Add Todo item" Text="{Binding NewItemTitle}">
+                <TextBox.InnerRightContent>
+                    <Button Content="Add" Command="{Binding AddItemCommand}"></Button>
+                </TextBox.InnerRightContent>
+            </TextBox>
+        </StackPanel>
+    </Grid>
+
+</Window>
