@@ -1,19 +1,25 @@
-﻿namespace ToDoList.Models;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
-public class TodoItem
+namespace ToDoList.Models
 {
-    public string Title { get; set; }
-    public bool IsDone { get; set; }
-
-    public TodoItem(string title, bool isDone)
+    public partial class TodoItem : ObservableObject
     {
-        this.Title = title;
-        this.IsDone = isDone;
-    }
+        [ObservableProperty]
+        private string title;
 
-    public TodoItem(string title)
-    {
-        this.Title = title;
-        this.IsDone = false;
+        [ObservableProperty]
+        private bool isDone;
+
+        public TodoItem(string title, bool isDone = false)
+        {
+            this.Title = title;
+            this.IsDone = isDone;
+        }
+        public TodoItem(string title)
+        {
+            this.Title = title;
+            this.IsDone = false;
+        }
     }
 }

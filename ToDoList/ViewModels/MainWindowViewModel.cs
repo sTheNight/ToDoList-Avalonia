@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ToDoList.Models;
+using ToDoList.Views;
 
 namespace ToDoList.ViewModels;
 
@@ -31,5 +32,13 @@ public partial class MainWindowViewModel : ViewModelBase
     public void RemoveItem(TodoItem item)
     {
         TodoItems.Remove(item);
+    }
+
+    [RelayCommand]
+    public void EditItem(TodoItem item)
+    {
+        var editDialog = new EditTodo();
+        editDialog.DataContext = item;
+        editDialog.Show();
     }
 }

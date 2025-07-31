@@ -19,12 +19,21 @@
             <ItemsControl ItemsSource="{Binding TodoItems}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Grid ColumnDefinitions="*,Auto" Margin="0,5">
+                        <Grid ColumnDefinitions="*,Auto" Margin="0,5" Background="Transparent">
                             <CheckBox IsChecked="{Binding IsDone}" Content="{Binding Title}"></CheckBox>
                             <Button Grid.Column="1" Content="Delete"
                                     Command="{Binding  #Root.((vm:MainWindowViewModel)DataContext).RemoveItemCommand}"
                                     CommandParameter="{Binding .}">
                             </Button>
+                            <Grid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="修改" Command="{Binding #Root.((vm:MainWindowViewModel)DataContext).EditItemCommand}" CommandParameter="{Binding}"></MenuItem>
+                                    <MenuItem Header="删除"
+                                              Command="{Binding #Root.((vm:MainWindowViewModel)DataContext).RemoveItemCommand}"
+                                              CommandParameter="{Binding}">
+                                    </MenuItem>
+                                </ContextMenu>
+                            </Grid.ContextMenu>
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
